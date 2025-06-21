@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+// No longer import React directly when using Babel in-browser with global React/ReactDOM
+// import React, { useState, useEffect } from 'react';
 
 // Main App Component
+// Define App as a global variable directly
 const App = () => {
   // Debugging: Confirm App.js is loaded and running
   console.log("App.js loaded and running!");
 
-  const [currentPage, setCurrentPage] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
+  // React hooks will still work because React is loaded globally
+  const [currentPage, setCurrentPage] = React.useState('home');
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isDarkMode, setIsDarkMode] = React.useState(true); // Default to dark mode
 
   // Mock Data for Projects
   // Aquí es donde puedes agregar o modificar tus proyectos
@@ -120,7 +123,7 @@ const App = () => {
   };
 
   // Check for selected item ID on initial load (for direct deep links or refreshes)
-  useEffect(() => {
+  React.useEffect(() => {
     const storedProjectId = sessionStorage.getItem('selectedProjectId');
     const storedBlogId = sessionStorage.getItem('selectedBlogId');
     if (storedProjectId && projectsData.some(p => p.id === storedProjectId)) {
@@ -131,7 +134,7 @@ const App = () => {
   }, []); // Run only once on mount
 
   // Apply dark/light mode to body and html element
-  useEffect(() => {
+  React.useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       document.body.classList.remove('bg-white'); // Ensure light mode background is removed
@@ -354,7 +357,7 @@ const App = () => {
   const ProjectDetailPage = () => {
     const projectId = sessionStorage.getItem('selectedProjectId');
     const project = projectsData.find(p => p.id === projectId);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = React.useState(0); // Using React.useState
 
     if (!project) {
       return (
@@ -454,7 +457,7 @@ const App = () => {
             {project.purpose && (
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-indigo-400 mb-3">Propósito</h3>
-                <p className="text-gray-300">{project.purpose}</p>
+                <p className="text-300">{project.purpose}</p>
               </div>
             )}
 
@@ -771,4 +774,7 @@ const App = () => {
   );
 };
 
-export default App;
+// Export the App component (needed for Babel to recognize it)
+// In a typical React project, this is how you make the component available for other files.
+// For in-browser Babel, this is necessary.
+// export default App; // REMOVED as it causes "exports is not defined" error in this specific setup
