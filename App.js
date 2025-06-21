@@ -1,13 +1,13 @@
-// No longer import React directly when using Babel in-browser with global React/ReactDOM
-// import React, { useState, useEffect } from 'react';
+// Este archivo App.js ya no usa la sintaxis 'import'/'export'
+// Esto lo hace compatible directamente en el navegador sin Babel
 
 // Main App Component
-// Define App as a global variable directly
+// Definido como una función global para ser accesible desde index.html
 const App = () => {
   // Debugging: Confirm App.js is loaded and running
   console.log("App.js loaded and running!");
 
-  // React hooks will still work because React is loaded globally
+  // Los hooks de React ahora se acceden directamente desde el objeto global 'React'
   const [currentPage, setCurrentPage] = React.useState('home');
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isDarkMode, setIsDarkMode] = React.useState(true); // Default to dark mode

@@ -13,15 +13,21 @@
 </head>
 <body class="bg-gray-900 text-white font-inter antialiased transition-colors duration-300">
     <div id="root"></div>
+
     <!-- React Development CDN -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Babel for JSX transformation in browser (for development only) -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel" src="./App.js"></script> <!-- <<-- ¡CAMBIA ESTA LÍNEA! -->
-    <script type="text/babel">
-        // Render the React App component into the 'root' div
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    <!--
+        Ya NO NECESITAMOS Babel para transpilar App.js.
+        App.js ahora es JavaScript directamente compatible con el navegador.
+    -->
+    <script src="./App.js"></script> <!-- Carga App.js como un script JS normal -->
+
+    <script>
+        // Renderiza el componente React App en el div 'root'
+        // 'App' debe estar disponible globalmente desde App.js
+        ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App, null));
     </script>
 </body>
 </html>
