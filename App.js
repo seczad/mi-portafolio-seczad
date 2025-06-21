@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 // Main App Component
 const App = () => {
+  // Debugging: Confirm App.js is loaded and running
+  console.log("App.js loaded and running!");
+
   const [currentPage, setCurrentPage] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
