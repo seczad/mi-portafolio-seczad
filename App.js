@@ -1,6 +1,3 @@
-// Este archivo App.js ya no usa la sintaxis 'import'/'export'
-// Esto lo hace compatible directamente en el navegador sin Babel
-
 // Main App Component
 // Definido como una función global para ser accesible desde index.html
 const App = () => {
@@ -191,10 +188,10 @@ const App = () => {
       {/* Mobile Menu (conditionally rendered) */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-800 dark:bg-gray-800 py-4 pb-6 px-4 space-y-4 text-center animate-fade-in">
-          <NavLink to="home" label="🏠 Inicio" />
-          <NavLink to="projects" label="🧑‍💻 Proyectos" />
-          <NavLink to="blog" label="📝 Blog" />
-          <NavLink to="contact" label="📫 Contacto" />
+          <NavLink to="home" label=" Inicio" />
+          <NavLink to="projects" label=" Proyectos" />
+          <NavLink to="blog" label=" Blog" />
+          <NavLink to="contact" label=" Contacto" />
         </div>
       )}
     </nav>
