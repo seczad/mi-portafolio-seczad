@@ -132,20 +132,15 @@ const App = () => {
 
   // Apply dark/light mode to body and html element
   React.useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      document.body.classList.remove('bg-white'); // Ensure light mode background is removed
-      document.body.classList.add('bg-gray-900'); // Set dark mode background
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('bg-gray-900'); // Ensure dark mode background is removed
-      document.body.classList.add('bg-white'); // Set light mode background
-    }
-  }, [isDarkMode]);
-
+  if (isDarkMode) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+}, [isDarkMode]);
   // Component for Navigation Bar
   const Navbar = () => (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gray-900 dark:bg-gray-900 shadow-lg transition-colors duration-300">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-lg transition-colors duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-6">
           {/* Logo / Sitio de Gustavo */}
@@ -187,7 +182,7 @@ const App = () => {
       </div>
       {/* Mobile Menu (conditionally rendered) */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-800 dark:bg-gray-800 py-4 pb-6 px-4 space-y-4 text-center animate-fade-in">
+        <div className="md:hidden bg-white dark:bg-gray-800 py-4 pb-6 px-4 space-y-4 text-center animate-fade-in border-b border-gray-200 dark:border-gray-700">
           <NavLink to="home" label=" Inicio" />
           <NavLink to="projects" label=" Proyectos" />
           <NavLink to="blog" label=" Blog" />
@@ -233,7 +228,7 @@ const App = () => {
 
   // Component for Home Page
   const HomePage = () => (
-    <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12 bg-gradient-to-br from-gray-900 to-gray-800 text-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300 animate-fade-in px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12 bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white transition-colors duration-300 animate-fade-in px-4">
       <div className="max-w-4xl mx-auto text-center">
         {/* Welcome Section */}
         <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight animate-fade-in-up">
@@ -316,23 +311,32 @@ const App = () => {
   );
 
   // Component for Project Card
-  const ProjectCard = ({ project, navigateTo }) => (
-    <div
-      className="bg-gray-800 dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300 ease-in-out border border-gray-700 animate-fade-in"
-      onClick={() => navigateTo('projectDetail', project.id)}
-    >
-      <img
-        src={project.thumbnail}
-        alt={project.title}
-        className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
-        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x250/334155/e2e8f0?text=Imagen+no+disponible'; }}
-      />
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-indigo-400 mb-2">{project.title}</h3>
-        <p className="text-gray-300 text-sm">{project.shortDescription}</p>
-      </div>
+const ProjectCard = ({ project, navigateTo }) => (
+  <div
+    // 1. Cambiamos bg-gray-800 por bg-white (modo claro)
+    // 2. Agregamos dark:bg-gray-800 (modo oscuro)
+    // 3. Cambiamos el borde para que sea sutil en ambos modos
+    className="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300 ease-in-out border border-gray-200 dark:border-gray-700 animate-fade-in"
+    onClick={() => navigateTo('projectDetail', project.id)}
+  >
+    <img
+      src={project.thumbnail}
+      alt={project.title}
+      className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+      onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x250/334155/e2e8f0?text=Imagen+no+disponible'; }}
+    />
+    <div className="p-6">
+      {/* El título ahora es un azul más fuerte en claro y el índigo original en oscuro */}
+      <h3 className="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">
+        {project.title}
+      </h3>
+      {/* El texto cambia de gris oscuro a gris claro */}
+      <p className="text-gray-600 dark:text-gray-300 text-sm">
+        {project.shortDescription}
+      </p>
     </div>
-  );
+  </div>
+);
 
   // Component for Projects Page
   const ProjectsPage = () => (
